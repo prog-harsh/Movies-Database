@@ -1,0 +1,27 @@
+.list {
+    display: flex;
+    color: white;
+}
+
+.list h2 {
+    /* width: 50%; */
+    align-self: center;
+    /* text-align: center; */
+    margin-left: 2rem;
+}
+
+p {
+    color: white;
+}
+
+.list_img {
+    height: 100px;
+}
+
+.card {
+    background-color: rgb(12, 9, 9);
+    box-shadow: 4px 4px 3px black;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 18px;
+}
