@@ -9,24 +9,25 @@ import "./Home.css";
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
+  const [timeoutId, updateTimeoutId] = useState();
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
-    // fetchUserName();
   }, [user, loading]);
 
   useEffect(() => {
     async function fetchData() {
-
-		console.log(searchTerm.length + "======");
+      console.log(searchTerm.length + "======");
       const res = await axios.get(searchTerm);
-      const data = res.data.results;
-      //   console.log(data);
-      setMovies(prevData => [...data]);
+      const data = res.data.Search;
+
+      if (typeof data !== "undefined") {
+        setMovies(data);
+      }
     }
     if (searchTerm !== "") {
       fetchData();
@@ -36,30 +37,29 @@ const Home = () => {
   function onSearch(e) {
     e.preventDefault();
     const search = e.target.value;
-    console.log(search);
     if (search.length === 0 || searchTerm.length === 0) {
       setMovies([]);
-	  setSearchTerm("");
+      setSearchTerm("");
     }
     if (!search) {
-		setMovies([]);
-		setSearchTerm("");
+      setMovies([]);
+      setSearchTerm("");
       return;
     }
-
-    // window.location.href = `/search?search=${search}`;
-    setSearchTerm(search);
+	clearTimeout(timeoutId);
+	const timeout = setTimeout(()=>setSearchTerm(search),500);
+	updateTimeoutId(timeout);
   }
   return (
     <div>
       <form className="home_form">
         <input placeholder="Search movies" onChange={onSearch} type="text" />
+        <button onClick={(e) => e.preventDefault()}>My List</button>
         <button onClick={logout}>Logout</button>
-		<button onClick={(e) => e.preventDefault()} type="submit">
-          Search
-        </button>
       </form>
-      <List movies={movies} />
+      { movies.map((movie) => {
+        return <List movie={movie} />;
+      })}
     </div>
   );
 };

@@ -6,14 +6,15 @@ import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/home");
+    if (user) {
+      navigate("/home");
+    }
   }, [user, loading]);
   return (
     <div className="login">
@@ -41,9 +42,6 @@ function Login() {
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
         </button>
-        <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
         <div>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
