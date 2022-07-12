@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios";
 import List from "./List";
-import { logout, auth } from "../firebase";
+import { logout, auth } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Home.css";
