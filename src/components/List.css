@@ -41,3 +41,13 @@ p {
     align-content: center;
     margin-left: 13px;
 }
+
+@media screen and (max-width: 660px) {
+    .card {
+        flex-direction: column;
+    }
+    .list_img {
+        width: 400px;
+        height: 200px;
+    }
+}

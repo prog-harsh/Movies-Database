@@ -46,9 +46,9 @@ const Home = () => {
       setSearchTerm("");
       return;
     }
-	clearTimeout(timeoutId);
-	const timeout = setTimeout(()=>setSearchTerm(search),500);
-	updateTimeoutId(timeout);
+    clearTimeout(timeoutId);
+    const timeout = setTimeout(() => setSearchTerm(search), 500);
+    updateTimeoutId(timeout);
   }
   return (
     <div>
@@ -57,9 +57,17 @@ const Home = () => {
         <button onClick={(e) => e.preventDefault()}>My List</button>
         <button onClick={logout}>Logout</button>
       </form>
-      { movies.map((movie) => {
-        return <List movie={movie} />;
-      })}
+      {movies.length === 0 ? (
+        <div className="no-results">
+			<h1>No results</h1>
+		</div>
+      ) : (
+        <div>
+          {movies.map((movie) => {
+            return <List movie={movie} />;
+          })}
+        </div>
+      )}
     </div>
   );
 };

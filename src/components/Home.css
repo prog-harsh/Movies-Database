@@ -38,3 +38,9 @@
     /* box-shadow: 4px 4px 3px black; */
     color: white;
 }
+
+.no-results h1 {
+    text-align: center;
+    color: white;
+    padding: 6rem;
+}
