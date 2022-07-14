@@ -59,12 +59,12 @@ const Home = () => {
       </form>
       {movies.length === 0 ? (
         <div className="no-results">
-			<h1>No results</h1>
-		</div>
+          <h1>No results</h1>
+        </div>
       ) : (
         <div>
           {movies.map((movie) => {
-            return <List movie={movie} />;
+            return <List key={movie.imdbID} movie={movie} />;
           })}
         </div>
       )}
