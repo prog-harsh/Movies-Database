@@ -13,7 +13,12 @@ p {
     height: 40vh;
     object-fit: cover;
     width: 260px;
+    transition: 400ms;
     /* width: 180px; */
+}
+
+.list_img:hover {
+    transform: scale(1.02);
 }
 
 .container {
@@ -35,6 +40,24 @@ p {
     border: 1px solid rgb(85, 82, 82);
 }
 
+.add-button {
+    padding: 0.4rem 1.2rem;
+    width: fit-content;
+    cursor: pointer;
+    transition: 300ms;
+    font-size: 14px;
+    color: white;
+    background-color: rgb(19, 18, 18);
+    border: 1px solid rgb(85, 82, 82);
+}
+
+.add-button:hover {
+    background-color: rgb(0, 0, 0);
+    box-shadow: 3px 4px 3px black;
+    color: white;
+    transform: scale(1.01);
+}
+
 .info_list {
     align-self: center;
     justify-self: center;
@@ -47,7 +70,7 @@ p {
         flex-direction: column;
     }
     .list_img {
-        width: 400px;
+        width: 300px;
         height: 200px;
     }
 }

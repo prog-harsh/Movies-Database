@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
+import { addMovieWatchlist } from "../auth/firebase";
+import Button from "../ui/Button";
 
 const List = ({ movie, date }) => {
   const [movieDetails, setMoviesDetails] = useState({});
@@ -15,6 +17,7 @@ const List = ({ movie, date }) => {
     fetchData();
   }, [imdbId]);
   console.log(movieDetails);
+  //   addMovieWatchlist(movieDetails);
   return (
     <div className="card">
       <div className="list">
@@ -45,6 +48,12 @@ const List = ({ movie, date }) => {
           <p>Director: {movieDetails.Director}</p>
           <p>Actors: {movieDetails.Actors}</p>
           <p>Plot: {movieDetails.Plot}</p>
+          <Button
+            onClick={() => addMovieWatchlist(movieDetails)}
+            className="add-button"
+          >
+            Add to list
+          </Button>
         </div>
       </div>
     </div>
