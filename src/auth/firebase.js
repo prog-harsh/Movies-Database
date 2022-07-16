@@ -11,6 +11,7 @@ import {
   getFirestore,
   query,
   getDocs,
+  deleteDoc,
   collection,
   where,
   addDoc,
@@ -102,20 +103,45 @@ const addMovieWatchlist = async (movie) => {
   }
 };
 
-const getMovieWatchList = async () => {
+const getMovieWatchList = async (uid) => {
   try {
-    const user = getAuth(app).currentUser;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const q = query(collection(db, "users"), where("uid", "==", uid));
 
     const docs = await getDocs(q);
     const docId = docs.docs[0].ref.id;
     const watchlistRef = collection(db, "users/" + docId + "/watchlist");
     const watchlistDoc = await getDocs(watchlistRef);
-	const data = watchlistDoc.docs.map((e) => e.data());
-	return data;
+
+    const data = watchlistDoc.docs.map((e) => e.data());
+    return data;
   } catch (error) {
-	alert(error);
+    alert(error);
   }
+};
+
+const deleteMovieWatchlist = async (movie) => {
+  try {
+    const user = getAuth(app).currentUser;
+    if (!user) return;
+
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+
+    const docs = await getDocs(q);
+    const docId = docs.docs[0].ref.id;
+    const watchlistRef = query(collection(db, "users/" + docId + "/watchlist"), where("imdbID", "==", movie.imdbID));
+    const watchlistDoc = await getDocs(watchlistRef);
+
+    if (
+      watchlistDoc.docs.filter((doc) => doc.data().imdbID === movie.imdbID)
+        .length === 0
+    ) {
+      alert("Movie not in watchlist");
+      return;
+    }
+
+    await deleteDoc(watchlistDoc.docs[0].ref);
+    alert("Movie removed from watchlist");
+  } catch (error) {}
 };
 
 const logout = () => {
@@ -124,10 +150,12 @@ const logout = () => {
 export {
   auth,
   db,
+  app,
   signInWithGoogle,
   logInWithEmailAndPassword,
   addMovieWatchlist,
   getMovieWatchList,
   registerWithEmailAndPassword,
+  deleteMovieWatchlist,
   logout,
 };
