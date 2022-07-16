@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
-import { addMovieWatchlist } from "../auth/firebase";
+import { addMovieWatchlist, deleteMovieWatchlist } from "../auth/firebase";
 import Button from "../ui/Button";
 
-const List = ({ movie, date }) => {
+const List = ({ movie, buttonTitle, onClick }) => {
   const [movieDetails, setMoviesDetails] = useState({});
   const imdbId = movie.imdbID;
   console.log(imdbId);
@@ -49,10 +49,10 @@ const List = ({ movie, date }) => {
           <p>Actors: {movieDetails.Actors}</p>
           <p>Plot: {movieDetails.Plot}</p>
           <Button
-            onClick={() => addMovieWatchlist(movieDetails)}
+            onClick={onClick}
             className="add-button"
           >
-            Add to list
+            {buttonTitle}
           </Button>
         </div>
       </div>
