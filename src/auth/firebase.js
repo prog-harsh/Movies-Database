@@ -128,19 +128,13 @@ const deleteMovieWatchlist = async (movie) => {
 
     const docs = await getDocs(q);
     const docId = docs.docs[0].ref.id;
-    const watchlistRef = query(collection(db, "users/" + docId + "/watchlist"), where("imdbID", "==", movie.imdbID));
+    const watchlistRef = query(
+      collection(db, "users/" + docId + "/watchlist"),
+      where("imdbID", "==", movie.imdbID)
+    );
     const watchlistDoc = await getDocs(watchlistRef);
 
-    if (
-      watchlistDoc.docs.filter((doc) => doc.data().imdbID === movie.imdbID)
-        .length === 0
-    ) {
-      alert("Movie not in watchlist");
-      return;
-    }
-
     await deleteDoc(watchlistDoc.docs[0].ref);
-    alert("Movie removed from watchlist");
   } catch (error) {}
 };
 
