@@ -96,7 +96,7 @@ const addMovieWatchlist = async (movie) => {
     await addDoc(collection(docs.docs[0].ref, "watchlist"), {
       ...movie,
     });
-    alert("Movie added to watchlist");
+    // alert("Movie added to watchlist");
   } catch (err) {
     console.error(err);
     alert(err.message);

@@ -60,8 +60,12 @@ const Home = () => {
     <div>
       <form className="home_form" onSubmit={(e) => e.preventDefault()}>
         <input placeholder="Search movies" onChange={onSearch} type="text" />
-        <button type="button" onClick={onMyListClick}>My List</button>
-        <button type="button" onClick={logout}>Logout</button>
+        <button type="button" onClick={onMyListClick}>
+          My List
+        </button>
+        <button type="button" onClick={logout}>
+          Logout
+        </button>
       </form>
       {movies.length === 0 ? (
         <NoResult class="no-results" />
@@ -72,8 +76,10 @@ const Home = () => {
               <List
                 key={movie.imdbID}
                 movie={movie}
-                buttonTitle="Add to List"
-				onClick={() => addMovieWatchlist(movie)}
+                buttonTitle="Add to list"
+                onClick={() =>
+                  addMovieWatchlist(movie)
+                }
               />
             );
           })}

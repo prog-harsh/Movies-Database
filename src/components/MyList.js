@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getMovieWatchList, auth, deleteMovieWatchlist } from "../auth/firebase";
+import {
+  getMovieWatchList,
+  auth,
+  deleteMovieWatchlist,
+} from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import List from "./List";
 import "./MyList.css";
@@ -39,10 +43,17 @@ const MyList = () => {
     <NoResult class="no-results-myList" />
   ) : (
     movies.map((movie) => {
-      return <List key={movie.imdbID} movie={movie} buttonTitle="Remove" onClick={()=> {
-		deleteMovieWatchlist(movie);
-		setMovies(movies.filter(m => m.imdbID !== movie.imdbID));
-	  }}/>;
+      return (
+        <List
+          key={movie.imdbID}
+          movie={movie}
+          buttonTitle="Remove"
+          onClick={() => {
+            deleteMovieWatchlist(movie);
+            setMovies(movies.filter((m) => m.imdbID !== movie.imdbID));
+          }}
+        />
+      );
     })
   );
 };

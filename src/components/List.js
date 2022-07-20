@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
-import { addMovieWatchlist, deleteMovieWatchlist } from "../auth/firebase";
 import Button from "../ui/Button";
 
-const List = ({ movie, buttonTitle, onClick }) => {
+const List = ({ movie, buttonTitle, onClick}) => {
   const [movieDetails, setMoviesDetails] = useState({});
+  const [isClick, setIsClick] = useState(false);
+  //   const
   const imdbId = movie.imdbID;
   console.log(imdbId);
   useEffect(() => {
@@ -48,12 +49,21 @@ const List = ({ movie, buttonTitle, onClick }) => {
           <p>Director: {movieDetails.Director}</p>
           <p>Actors: {movieDetails.Actors}</p>
           <p>Plot: {movieDetails.Plot}</p>
-          <Button
-            onClick={onClick}
-            className="add-button"
-          >
-            {buttonTitle}
-          </Button>
+          {!isClick ? (
+            <Button
+              onClick={() => {
+                setIsClick(true);
+                onClick();
+              }}
+              className="add-button"
+            >
+              {buttonTitle}
+            </Button>
+          ) : (
+            <Button className="add-button" disabled>
+              {"Added to list"}
+            </Button>
+          )}
         </div>
       </div>
     </div>
